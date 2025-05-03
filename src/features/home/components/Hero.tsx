@@ -17,7 +17,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            The Right Care, Without the Runaround.
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              The Right Care, Without the Runaround.
+            </h1>
           </motion.h1>
 
           <motion.p
@@ -25,8 +27,10 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Personalized senior care recommendations you can trust. No pressure.
-            No spam.
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Personalized senior care recommendations you can trust. No
+              pressure. No spam.
+            </p>
           </motion.p>
 
           <motion.div

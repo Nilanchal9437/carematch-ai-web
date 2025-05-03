@@ -24,9 +24,6 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
 });
 
-userSchema.index({ email: 1 });
-userSchema.index({ company_id: 1, role: 1 });
-
 const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
 
 export default User;

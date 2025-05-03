@@ -47,12 +47,16 @@ export default function WhyTrustUs() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                  <benefit.icon className="w-6 h-6 text-blue-600" />
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <benefit.icon className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-600">{benefit.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
               </div>
             </motion.div>
           ))}
