@@ -36,8 +36,7 @@ export default function HowItWorks() {
               key={step.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-sm"
+              transition={{ duration: 0.5, delay: index * 0.2 }} 
             >
               <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">

@@ -1,9 +1,10 @@
-import React from 'react'
-import Hero from './components/Hero'
-import HowItWorks from './components/HowItWorks'
-import WhyTrustUs from './components/WhyTrustUs'
-import About from './components/About'
-import IntakeForm from './components/IntakeForm'
+"use client";
+
+import Hero from "@/features/home/components/Hero";
+import HowItWorks from "@/features/home/components/HowItWorks";
+import WhyTrustUs from "@/features/home/components/WhyTrustUs";
+import About from "@/features/home/components/About";
+import IntakeForm from "@/features/home/components/IntakeForm";
 
 export default function Home() {
   return (
@@ -27,5 +28,5 @@ export default function Home() {
         <IntakeForm />
       </div>
     </main>
-  )
-} 
+  );
+}
