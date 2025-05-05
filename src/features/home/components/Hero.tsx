@@ -26,7 +26,7 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/IMG-20250505-WA0002.jpg"
+              src="/hero.jpg"
               alt="Healthcare Technology"
               fill
               className="object-cover rounded-2xl"
@@ -82,7 +82,7 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/IMG-20250505-WA0002.jpg"
+              src="/hero.jpg"
               alt="Healthcare Technology"
               fill
               className="object-cover rounded-2xl"
