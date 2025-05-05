@@ -48,12 +48,6 @@ export default function Navbar() {
               Resources
             </button>
             <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              Contact
-            </button>
-            <button 
               onClick={() => scrollToSection('get-started')}
               className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
             >

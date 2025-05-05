@@ -18,8 +18,8 @@ const SideBar = () => {
                 href={item.link}
                 className={`flex items-center gap-3 rounded-md px-3 py-2 transition ${
                   isActive
-                    ? "bg-green-500 text-white font-medium"
-                    : "text-black hover:bg-green-500 hover:text-white"
+                    ? "bg-blue-500 text-white font-medium"
+                    : "text-black hover:bg-blue-500 hover:text-white"
                 }`}
               >
                 {item?.icon && <Icon />}

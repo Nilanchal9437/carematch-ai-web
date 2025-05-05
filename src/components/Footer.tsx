@@ -65,11 +65,6 @@ export default function Footer() {
                   Resources
                 </button>
               </li>
-              <li>
-                <button onClick={() => scrollToSection('contact')} className="text-gray-600 hover:text-blue-600 transition-colors text-sm text-left">
-                  Contact Us
-                </button>
-              </li>
             </ul>
           </div>
 

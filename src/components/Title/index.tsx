@@ -21,7 +21,7 @@ function Title({ title, description, action, btntitle, hidebtn }: TitleType) {
       {!hidebtn && (
         <button
           onClick={() => action()}
-          className="flex items-center gap-2 px-4 py-2 border border-green-600 text-green-600 rounded-full hover:bg-green-600 hover:text-white transition-all"
+          className="flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all"
         >
           <Plus className="w-4 h-4" />
           {btntitle}

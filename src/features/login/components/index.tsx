@@ -23,17 +23,18 @@ function Login() {
         >
           {(formik) => (
             <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto">
-              <h2 className="text-green-600 font-semibold text-4xl mb-2">
+              <h2 className="text-blue-600 font-semibold text-4xl mb-2">
                 Log In
               </h2>
               <h1 className="text-2xl font-semibold mb-2">Get Started Now!</h1>
               <p className="text-gray-500 text-sm">
-                At DreamQi Financial, we believe in making finance simple,
-                accessible, and personalised. With years of experience in the
-                mortgage and finance industry, we’ve helped clients across
-                Australia secure loans that support their life goals—whether
-                that’s buying a home, growing their investment portfolio, or
-                funding a personal dream.
+                We believe finding the right senior care should be a deeply
+                personal, transparent, and stress-free experience. Unlike
+                traditional referral services that prioritize paid partnerships,
+                we match families with care providers that genuinely fit their
+                needs. Our mission is to ensure every senior finds a home where
+                they can thrive, with clear and honest guidance every step of
+                the way.
               </p>
 
               {/* Email Field */}
@@ -42,7 +43,7 @@ function Login() {
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
-                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -60,7 +61,7 @@ function Login() {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter your password"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -85,7 +86,7 @@ function Login() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white font-semibold py-3 rounded-md mt-6 hover:bg-green-700 transition"
+                className="w-full bg-blue-600 text-white font-semibold py-3 rounded-md mt-6 hover:bg-blue-700 transition"
               >
                 Login
               </button>

@@ -15,13 +15,10 @@ export default function Home() {
       <div id="how-it-works">
         <HowItWorks />
       </div>
-      <div id="resources">
-        <WhyTrustUs />
-      </div>
       <div id="about">
         <About />
       </div>
-      <div id="contact">
+      <div id="resources">
         <WhyTrustUs />
       </div>
       <div id="get-started">
