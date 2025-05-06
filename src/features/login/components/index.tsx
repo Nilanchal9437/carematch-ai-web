@@ -4,11 +4,12 @@ import * as React from "react";
 import Image from "next/image";
 import { Formik } from "formik";
 import { Eye, EyeOff } from "lucide-react";
-import login from "@/features/login/apis/login";
+import useLogin from "@/features/login/apis/login";
 import schema from "@/features/login/schema";
 
 function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const { login } = useLogin();
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen">

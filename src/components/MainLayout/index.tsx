@@ -10,6 +10,7 @@ import Image from "next/image";
 import { LogOut } from "lucide-react";
 
 // Components
+import Logo from "@/components/Logo";
 import SideBar from "@/components/MainLayout/sideBar";
 import type { LayoutType } from "@/components/MainLayout/types";
 import logout from "@/components/MainLayout/apis/logout";
@@ -26,7 +27,7 @@ function MainLayout({ children, user }: LayoutType) {
         {/* Logo */}
         <div className="flex items-center h-20 border-b border-gray-700 mx-4">
           <Link href="/">
-            <Image height={50} width={100} src="/logo.png" alt="logo" />
+            <Logo />
           </Link>
         </div>
 

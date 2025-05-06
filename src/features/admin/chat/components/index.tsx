@@ -53,8 +53,8 @@ function Chat() {
     <div className="container mx-auto px-4">
       {/* Header Title */}
       <Title
-        title="User Chat List"
-        description="These are the financial chatlist for users"
+        title="CareMatch AI List"
+        description="CareMatch AI Chat List"
         btntitle=""
         hidebtn
         action={() => {}}
@@ -68,25 +68,8 @@ function Chat() {
             <tr>
               <th className="px-4 py-3 text-start">Date</th>
               <th className="px-4 py-3 text-start">Full Name</th>
-              <th className="px-4 py-3 text-start">Care For</th>
-              <th className="px-4 py-3 text-start">Age</th>
-              <th className="px-4 py-3 text-start">Current Location</th>
-              <th className="px-4 py-3 text-start">Preferred Location</th>
-              <th className="px-4 py-3 text-start">Care Type</th>
-              <th className="px-4 py-3 text-start">Daily Activities</th>
-              <th className="px-4 py-3 text-start">Conditions</th>
-              <th className="px-4 py-3 text-start">Mobility Aids</th>
-              <th className="px-4 py-3 text-start">Residence Type</th>
-              <th className="px-4 py-3 text-start">Budget</th>
-              <th className="px-4 py-3 text-start">Insurance</th>
-              <th className="px-4 py-3 text-start">Dietary Preferences</th>
-              <th className="px-4 py-3 text-start">Religious Preferences</th>
-              <th className="px-4 py-3 text-start">Social Interaction</th>
-              <th className="px-4 py-3 text-start">Move In Timeline</th>
-              <th className="px-4 py-3 text-start">In Facility</th>
-              <th className="px-4 py-3 text-start">Stay Duration</th>
-              <th className="px-4 py-3 text-start">Main Concern</th>
               <th className="px-4 py-3 text-start">Contact Info</th>
+              <th className="px-4 py-3 text-start">Care Type</th>
               <th className="px-4 py-3 text-center">Action</th>
             </tr>
           </thead>
@@ -97,7 +80,7 @@ function Chat() {
               // Loading Skeleton Rows
               [...Array(10)].map((_, index) => (
                 <tr key={index} className="border-b">
-                  {[...Array(22)].map((_, cellIndex) => (
+                  {[...Array(5)].map((_, cellIndex) => (
                     <td key={cellIndex} className="px-4 py-3 animate-pulse bg-gray-200 h-10"></td>
                   ))}
                 </tr>
@@ -105,7 +88,7 @@ function Chat() {
             ) : store?.store.length === 0 ? (
               // No Data Found
               <tr>
-                <td colSpan={22} className="px-6 py-10 text-center">
+                <td colSpan={5} className="px-6 py-10 text-center">
                   <Image
                     src="/no-data-found.png"
                     alt="not found"
@@ -118,35 +101,20 @@ function Chat() {
             ) : (
               // Data Rows
               store?.store?.map((row, index) => (
-                <tr key={index} className="border-b">
+                <tr key={index} className="border-b hover:bg-gray-700">
                   <td className="px-4 py-3 text-start">
-                    {moment(row.created_at).format("MMMM Do YYYY, h:mm a")}
+                    {moment(row.created_at).format("MMM DD, YYYY")}
                   </td>
                   <td className="px-4 py-3 text-start">{row.fullName}</td>
-                  <td className="px-4 py-3 text-start">{row.careFor}</td>
-                  <td className="px-4 py-3 text-start">{row.age}</td>
-                  <td className="px-4 py-3 text-start">{row.currentLocation}</td>
-                  <td className="px-4 py-3 text-start">{row.preferredLocation}</td>
-                  <td className="px-4 py-3 text-start">{row.careType.join(", ")}</td>
-                  <td className="px-4 py-3 text-start">{row.dailyActivities.join(", ")}</td>
-                  <td className="px-4 py-3 text-start">{row.conditions.join(", ")}</td>
-                  <td className="px-4 py-3 text-start">{row.mobilityAids.join(", ")}</td>
-                  <td className="px-4 py-3 text-start">{row.residenceType}</td>
-                  <td className="px-4 py-3 text-start">{row.budget}</td>
-                  <td className="px-4 py-3 text-start">{row.insurance}</td>
-                  <td className="px-4 py-3 text-start">{row.dietaryPreferences}</td>
-                  <td className="px-4 py-3 text-start">{row.religiousPreferences}</td>
-                  <td className="px-4 py-3 text-start">{row.socialInteraction}</td>
-                  <td className="px-4 py-3 text-start">{row.moveInTimeline}</td>
-                  <td className="px-4 py-3 text-start">{row.inFacility}</td>
-                  <td className="px-4 py-3 text-start">{row.stayDuration}</td>
-                  <td className="px-4 py-3 text-start">{row.mainConcern}</td>
                   <td className="px-4 py-3 text-start">{row.contactInfo}</td>
+                  <td className="px-4 py-3 text-start">
+                    {row.careType.join(", ")}
+                  </td>
                   <td className="px-4 py-3 text-center">
                     <button
-                      className="text-blue-500 hover:text-blue-700"
+                      className="text-blue-500 hover:text-blue-700 transition-colors"
                       onClick={() =>
-                        setUser({ 
+                        setUser({
                           answer: [
                             { question: "Care For", answer: row.careFor },
                             { question: "Age", answer: row.age },
@@ -167,8 +135,8 @@ function Chat() {
                             { question: "Stay Duration", answer: row.stayDuration },
                             { question: "Main Concern", answer: row.mainConcern },
                             { question: "Contact Info", answer: row.contactInfo }
-                          ], 
-                          open: true 
+                          ],
+                          open: true
                         })
                       }
                     >
@@ -191,56 +159,51 @@ function Chat() {
           onChange={(page) => setPagination({ ...pagination, pageNo: page })}
         />
       </div>
-      {user.open ? (
+
+      {/* Modal */}
+      {user.open && (
         <Modal
           title="USER RESPONSES"
           maxWidth="40vw"
           content={
-            <>
-              <div className="overflow-x-auto shadow-md rounded-lg mt-4">
-                <table className="min-w-full bg-gray-900">
-                  {/* Table Header */}
-                  <thead className="bg-gray-900 text-gray-300">
+            <div className="overflow-x-auto shadow-md rounded-lg mt-4">
+              <table className="min-w-full bg-gray-900">
+                <thead className="bg-gray-900 text-gray-300">
+                  <tr>
+                    <th className="px-4 py-3 text-start">Question</th>
+                    <th className="px-4 py-3 text-start">Answer</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-gray-600 text-gray-300">
+                  {user.answer.length === 0 ? (
                     <tr>
-                      <th className="px-4 py-3 text-start">Question</th>
-                      <th className="px-4 py-3 text-start">Answer</th>
+                      <td colSpan={2} className="px-6 py-10 text-center">
+                        <Image
+                          src="/no-data-found.png"
+                          alt="not found"
+                          height={400}
+                          width={400}
+                          className="mx-auto object-cover"
+                        />
+                      </td>
                     </tr>
-                  </thead>
-
-                  {/* Table Body */}
-                  <tbody className="bg-gray-600 text-gray-300">
-                    {user.answer.length === 0 ? ( 
-                      <tr>
-                        <td colSpan={3} className="px-6 py-10 text-center">
-                          <Image
-                            src="/no-data-found.png"
-                            alt="not found"
-                            height={400}
-                            width={400}
-                            className="mx-auto object-cover"
-                          />
-                        </td>
+                  ) : (
+                    user.answer?.map((row, index) => (
+                      <tr key={index} className="border-b">
+                        <td className="px-4 py-3 text-start">{row.question}</td>
+                        <td className="px-4 py-3 text-start">{row.answer}</td>
                       </tr>
-                    ) : (
-                      user.answer?.map((row, index) => (
-                        <tr key={index} className="border-b">
-                          <td className="px-4 py-3 text-start">
-                            {row.question}
-                          </td>
-                          <td className="px-4 py-3 text-start">{row.answer}</td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           }
-          secondaryText="This is chat response of the perticular user"
+          secondaryText="This is chat response of the particular user"
           onClose={() => setUser({ open: false, answer: [] })}
           open={user.open}
         />
-      ) : null}
+      )}
     </div>
   );
 }

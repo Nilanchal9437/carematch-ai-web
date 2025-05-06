@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import create from "@/features/home/apis/submit";
+import useCreate from "@/features/home/apis/submit";
 
 export type FormData = {
   careFor: string;
@@ -208,6 +208,7 @@ export default function IntakeForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const { create } = useCreate();
 
   const onSubmit = async (data: FormData) => {
     await create(data);

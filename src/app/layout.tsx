@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LoaderProvider } from "@/context/LoaderContext";
 
 export const metadata: Metadata = {
   title: "CareMatch AI - Find the Perfect Senior Care Facility",
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body>
-        <div className="min-h-screen flex flex-col">
-          <main className="flex-grow pt-16">{children}</main>
-        </div>
+        <LoaderProvider>
+          <div className="min-h-screen flex flex-col">
+            {children}
+          </div>
+        </LoaderProvider>
       </body>
     </html>
   );
