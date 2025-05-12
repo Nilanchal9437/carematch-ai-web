@@ -20,7 +20,8 @@ interface IChat extends Document {
   stayDuration: string;
   mainConcern: string;
   fullName: string;
-  contactInfo: string;
+  email: string;
+  phoneNumber: string;
   created_at: Date;
 }
 
@@ -44,7 +45,16 @@ const ChatSchema: Schema = new Schema({
   stayDuration: { type: String, required: true },
   mainConcern: { type: String, required: true },
   fullName: { type: String, required: true },
-  contactInfo: { type: String, required: true },
+  email: { 
+    type: String, 
+    required: true,
+    match: [/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'Please enter a valid email address']
+  },
+  phoneNumber: { 
+    type: String, 
+    required: true,
+    match: [/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, 'Please enter a valid phone number']
+  },
   created_at: { type: Date, required: true },
 });
 

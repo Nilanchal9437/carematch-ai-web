@@ -68,7 +68,8 @@ function Chat() {
             <tr>
               <th className="px-4 py-3 text-start">Date</th>
               <th className="px-4 py-3 text-start">Full Name</th>
-              <th className="px-4 py-3 text-start">Contact Info</th>
+              <th className="px-4 py-3 text-start">Email</th>
+              <th className="px-4 py-3 text-start">Phone</th>
               <th className="px-4 py-3 text-start">Care Type</th>
               <th className="px-4 py-3 text-center">Action</th>
             </tr>
@@ -80,7 +81,7 @@ function Chat() {
               // Loading Skeleton Rows
               [...Array(10)].map((_, index) => (
                 <tr key={index} className="border-b">
-                  {[...Array(5)].map((_, cellIndex) => (
+                  {[...Array(6)].map((_, cellIndex) => (
                     <td key={cellIndex} className="px-4 py-3 animate-pulse bg-gray-200 h-10"></td>
                   ))}
                 </tr>
@@ -88,7 +89,7 @@ function Chat() {
             ) : store?.store.length === 0 ? (
               // No Data Found
               <tr>
-                <td colSpan={5} className="px-6 py-10 text-center">
+                <td colSpan={6} className="px-6 py-10 text-center">
                   <Image
                     src="/no-data-found.png"
                     alt="not found"
@@ -106,7 +107,8 @@ function Chat() {
                     {moment(row.created_at).format("MMM DD, YYYY")}
                   </td>
                   <td className="px-4 py-3 text-start">{row.fullName}</td>
-                  <td className="px-4 py-3 text-start">{row.contactInfo}</td>
+                  <td className="px-4 py-3 text-start">{row.email}</td>
+                  <td className="px-4 py-3 text-start">{row.phoneNumber}</td>
                   <td className="px-4 py-3 text-start">
                     {row.careType.join(", ")}
                   </td>
@@ -134,7 +136,9 @@ function Chat() {
                             { question: "In Facility", answer: row.inFacility },
                             { question: "Stay Duration", answer: row.stayDuration },
                             { question: "Main Concern", answer: row.mainConcern },
-                            { question: "Contact Info", answer: row.contactInfo }
+                            { question: "Full Name", answer: row.fullName },
+                            { question: "Email", answer: row.email },
+                            { question: "Phone Number", answer: row.phoneNumber }
                           ],
                           open: true
                         })

@@ -6,7 +6,7 @@ import * as React from "react";
 import Link from "next/link";
 
 // Icons
-import { LogOut } from "lucide-react";
+import { LogOut, Loader2 } from "lucide-react";
 
 // Components
 import Logo from "@/components/Logo";
@@ -17,6 +17,17 @@ import logout from "@/components/MainLayout/apis/logout";
 const drawerWidth = "w-64"; // 256px equivalent
 
 function MainLayout({ children, user }: LayoutType) {
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -39,10 +50,9 @@ function MainLayout({ children, user }: LayoutType) {
           {/* Logout Button */}
           <div className="border-t border-gray-700 p-4">
             <button
-              onClick={() => {
-                logout();
-              }}
-              className="flex items-center w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-red-600 transition"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="flex items-center w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="w-8 h-8 flex items-center justify-center bg-gray-600 rounded-full text-white font-bold">
                 {user?.email[0]?.toUpperCase() || "X"}
@@ -50,7 +60,11 @@ function MainLayout({ children, user }: LayoutType) {
               <span className="ml-3 flex-1 truncate">
                 {(user?.email || "").substring(0, 18)}...
               </span>
-              <LogOut className="ml-3 h-5 w-5" />
+              {isLoggingOut ? (
+                <Loader2 className="ml-3 h-5 w-5 animate-spin" />
+              ) : (
+                <LogOut className="ml-3 h-5 w-5" />
+              )}
             </button>
           </div>
         </div>

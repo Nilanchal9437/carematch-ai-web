@@ -25,7 +25,8 @@ export type FormData = {
   stayDuration: string;
   mainConcern: string;
   fullName: string;
-  contactInfo: string;
+  email: string;
+  phoneNumber: string;
 };
 
 type FormField = {
@@ -193,8 +194,13 @@ const formSteps: FormStep[] = [
         type: "text",
       },
       {
-        name: "contactInfo",
-        label: "What's your email and phone number?",
+        name: "email",
+        label: "What's your email address?",
+        type: "text",
+      },
+      {
+        name: "phoneNumber",
+        label: "What's your phone number?",
         type: "text",
       },
     ],
@@ -207,11 +213,72 @@ export default function IntakeForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+    watch,
+    setValue,
+    reset
+  } = useForm<FormData>({
+    mode: "onBlur"
+  });
   const { create } = useCreate();
 
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
+    const cleaned = value.replace(/\D/g, '');
+    
+    // Format as (XXX) XXX-XXXX
+    if (cleaned.length >= 10) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    }
+    return value;
+  };
+
+  // Watch phone number for auto-formatting
+  const phoneNumber = watch('phoneNumber');
+  React.useEffect(() => {
+    if (phoneNumber) {
+      const formatted = formatPhoneNumber(phoneNumber);
+      if (formatted !== phoneNumber) {
+        setValue('phoneNumber', formatted);
+      }
+    }
+  }, [phoneNumber, setValue]);
+
+  // Initial form state
+  const initialFormState = {
+    careFor: "",
+    age: 0,
+    currentLocation: "",
+    preferredLocation: "",
+    careType: [],
+    dailyActivities: [],
+    conditions: [],
+    mobilityAids: [],
+    residenceType: "",
+    budget: "",
+    insurance: "",
+    dietaryPreferences: "",
+    religiousPreferences: "",
+    socialInteraction: "",
+    moveInTimeline: "",
+    inFacility: "",
+    stayDuration: "",
+    mainConcern: "",
+    fullName: "",
+    email: "",
+    phoneNumber: ""
+  };
+
   const onSubmit = async (data: FormData) => {
-    await create(data);
+    try {
+      await create(data);
+      // Reset form to initial state
+      reset(initialFormState);
+      // Reset step to first step
+      setCurrentStep(0);
+    } catch (error) {
+      // Error is already handled by the create function with toast notifications
+      console.error("Error submitting form:", error);
+    }
   };
 
   const nextStep = () => {
@@ -232,7 +299,7 @@ export default function IntakeForm() {
         return (
           <select
             {...register(field.name)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full text-lg py-3 px-4 bg-gray-50 focus:outline-none focus:bg-gray-100 rounded-md"
           >
             <option value="">Select an option</option>
             {field.options?.map((option: string) => (
@@ -251,7 +318,7 @@ export default function IntakeForm() {
                   type="checkbox"
                   {...register(field.name)}
                   value={option}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded text-blue-600"
                 />
                 <label className="ml-2 text-gray-700">{option}</label>
               </div>
@@ -263,16 +330,48 @@ export default function IntakeForm() {
           <textarea
             {...register(field.name)}
             rows={4}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full text-lg py-3 px-4 bg-gray-50 focus:outline-none focus:bg-gray-100 rounded-md"
           />
         );
       default:
         return (
-          <input
-            type={field.type}
-            {...register(field.name)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
+          <div>
+            <input
+              type={field.type}
+              {...register(field.name, {
+                ...(field.name === 'email' && {
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address"
+                  }
+                }),
+                ...(field.name === 'phoneNumber' && {
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^\(\d{3}\)\s\d{3}-\d{4}$/,
+                    message: "Please enter a valid US phone number"
+                  },
+                  onChange: (e) => {
+                    const formatted = formatPhoneNumber(e.target.value);
+                    e.target.value = formatted;
+                  }
+                })
+              })}
+              className="mt-1 block w-full text-lg py-3 px-4 bg-gray-50 focus:outline-none focus:bg-gray-100 rounded-md"
+              placeholder={field.name === 'phoneNumber' ? "(XXX) XXX-XXXX" : ""}
+              maxLength={field.name === 'phoneNumber' ? 14 : undefined}
+            />
+            {errors[field.name] && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors[field.name]?.message || "This field is required"}
+              </p>
+            )}
+            {field.name === 'phoneNumber' && !errors[field.name] && (
+              <p className="mt-1 text-sm text-gray-500">
+                Format: (XXX) XXX-XXXX
+              </p>
+            )}
+          </div>
         );
     }
   };
@@ -308,11 +407,6 @@ export default function IntakeForm() {
                       {field.label}
                     </label>
                     {renderField(field)}
-                    {errors[field.name as keyof FormData] && (
-                      <p className="mt-1 text-sm text-red-600">
-                        This field is required
-                      </p>
-                    )}
                   </div>
                 ))}
               </div>

@@ -19,6 +19,7 @@ export declare interface ChatType {
   stayDuration: string;
   mainConcern: string;
   fullName: string;
-  contactInfo: string;
+  email: string;
+  phoneNumber: string;
   _id?: string;
 }
